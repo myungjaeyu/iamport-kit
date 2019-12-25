@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+        <script src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+    </head>
+    <body>
+
+        <script>
+
+            const userCode = ''     /* 가맹점식별코드 */
+
+
+            const data = {
+                merchant_uid: `merchant_ ${ new Date().getTime() }`,
+                name: '하얀눈',
+                amount: 11000,
+                buyer_email: 'example@example.com',
+                buyer_name : '김테스트',
+                buyer_tel: '010-1234-5678',
+                buyer_addr: '서울특별시 테스트구 테스트동 123-3 테스트 오피스텔 1203호',
+                buyer_postcode: '123-456'
+            }
+
+
+            const response = ({ success, imp_uid, merchant_uid, paid_amount, apply_num, error_msg }) => console.log('결제', success ? { imp_uid, merchant_uid, paid_amount, apply_num } : error_msg )
+
+
+            IMP.init(userCode)
+
+
+            IMP.request_pay({
+                pg : '',            /* PG사 */
+                pay_method : '',    /* 결제수단 */
+                ...data,
+                // m_redirect_url : 'http://127.0.0.1:5500/redirect.html' // mobile browser
+            }, response)
+
+
+        </script>
+
+    </body>
+</html>
